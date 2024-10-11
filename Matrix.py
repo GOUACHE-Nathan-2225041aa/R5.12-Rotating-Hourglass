@@ -26,7 +26,7 @@ class Matrix:
             print("right")
         else:
             print("can't move")
-
+#
     def update_matrix(self):
         # We check if every point can be updated
         for y in range(len(self.matrix_content)).__reversed__():
