@@ -3,8 +3,11 @@ import time
 
 from Matrix import *
 
-matrix_size = 50
-percentage_of_spawn = 0.3
+matrix_size = 5
+percentage_of_spawn = 0.2
+
+nothing = 0
+something = 1
 
 matrix = []
 
@@ -12,22 +15,22 @@ for i in range(matrix_size):
     matrix.append([])
     for j in range(matrix_size):
         if random.random() < percentage_of_spawn:
-            matrix[i].append(0)
+            matrix[i].append(something)
         else:
-            matrix[i].append(" ")
+            matrix[i].append(nothing)
 
-matrix1 = Matrix(matrix)
+matrix1 = Matrix(matrix, something, nothing)
 
 print(matrix1)
 
 inp = ""
 
-while True:
-    time.sleep(0.1)
-    matrix1.update_matrix()
-    print(matrix1)
-
-# while inp != "stop":
-#     inp = input()
+# while True:
+#     time.sleep(0.1)
 #     matrix1.update_matrix()
 #     print(matrix1)
+#
+while inp != "stop":
+    inp = input()
+    matrix1.update_matrix()
+    print(matrix1)
