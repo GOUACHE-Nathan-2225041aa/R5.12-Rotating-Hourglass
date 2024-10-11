@@ -1,5 +1,6 @@
 import random
 
+# @todo : fix bug last line afk
 
 class Matrix:
     def __init__(self, matrix_content=[], content=0, space=" ", ):
@@ -8,10 +9,11 @@ class Matrix:
         self.space = space
 
     def __str__(self):
+        print(self.matrix_content)
         printable_matrix = ""
         for i in range(len(self.matrix_content)):
             for j in range(len(self.matrix_content[i])):
-                printable_matrix += " " + str(self.matrix_content[i - 1][j - 1]) + " "
+                printable_matrix += " " + str(self.matrix_content[i][j]) + " "
             printable_matrix += "\n"
         return printable_matrix
 
@@ -56,6 +58,7 @@ class Matrix:
             self.move_point(x, y, "down-somewhere")
 
     def update_matrix(self):
+        print(self.matrix_content)
         # We check if every point can be updated
         for y in range(len(self.matrix_content)-1).__reversed__():
             for x in range(len(self.matrix_content[y - 1])).__reversed__():
