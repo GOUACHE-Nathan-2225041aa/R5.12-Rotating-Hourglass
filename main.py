@@ -33,4 +33,5 @@ inp = ""
 while inp != "stop":
     inp = input()
     matrix1.update_matrix()
+    print(matrix1.matrix_content)
     print(matrix1)

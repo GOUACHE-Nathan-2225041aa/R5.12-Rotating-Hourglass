@@ -9,7 +9,6 @@ class Matrix:
         self.space = space
 
     def __str__(self):
-        print(self.matrix_content)
         printable_matrix = ""
         for i in range(len(self.matrix_content)):
             for j in range(len(self.matrix_content[i])):
@@ -36,7 +35,7 @@ class Matrix:
 
     # @todo -make the final result completely flat
     def update_point(self, x, y):
-        if y >= len(self.matrix_content):
+        if y >= len(self.matrix_content)-1:
             pass
         elif self.matrix_content[y][x - 1] != self.content:
             # The point drops by 1
@@ -58,7 +57,6 @@ class Matrix:
             self.move_point(x, y, "down-somewhere")
 
     def update_matrix(self):
-        print(self.matrix_content)
         # We check if every point can be updated
         for y in range(len(self.matrix_content)-1).__reversed__():
             for x in range(len(self.matrix_content[y - 1])).__reversed__():
