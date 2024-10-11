@@ -28,7 +28,7 @@ class Matrix:
             self.matrix_content[y - 1][x - 1] = temp
 
     # @todo -delete the temp values
-    #       -make the final result completely flat
+    # @todo -make the final result completely flat
     def update_point(self, x, y):
         if self.matrix_content[y][x - 1] != 0:
             # The point drops by 1
