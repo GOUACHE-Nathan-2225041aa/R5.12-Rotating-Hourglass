@@ -1,9 +1,8 @@
 import random
-import time
 
 from Matrix import *
 
-matrix_size = 5
+matrix_size = 7
 percentage_of_spawn = 0.2
 
 nothing = 0
