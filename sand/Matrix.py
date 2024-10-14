@@ -22,15 +22,18 @@ class Matrix:
 
     def update_line(self, y):
         for x in range(len(self.matrix_content[y])):
-            if self.matrix_content[y][x] != self.content and self.content in self.matrix_content[y - 1]:
+            if self.matrix_content[y][x] != self.content and self.content in self.matrix_content[y - 1] and y != 0:
                 best_distance = float("inf")
+                x_best_distance = -1
                 for upper_x in range(len(self.matrix_content[y - 1])):
                     if self.matrix_content[y - 1][upper_x] == self.content:
+                        print(y, x)
                         distance_between_2_points = math.sqrt(abs(((x - upper_x) ** 2) + 1))
                         if distance_between_2_points < best_distance:
                             best_distance = distance_between_2_points
                             x_best_distance = upper_x
-                self.switch_points(x_best_distance, y - 1, x, y)
+                if x_best_distance != -1:
+                    self.switch_points(x_best_distance, y - 1, x, y)
 
     def update_matrix(self):
         # We check if every point can be updated

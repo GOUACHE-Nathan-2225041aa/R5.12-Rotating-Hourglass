@@ -2,7 +2,7 @@ import random
 
 from Matrix import *
 
-matrix_size = 7
+matrix_size = 3
 percentage_of_spawn = 0.2
 
 nothing = 0
