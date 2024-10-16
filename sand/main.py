@@ -34,10 +34,16 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
 
-while True:
-    matrix1.update_matrix()
+has_updated = True
+
+while has_updated:
     plt.clf()
     ax = fig.add_subplot(111)
     ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
     plt.draw()
     plt.pause(0.00001)
+    has_updated = matrix1.update_matrix()
+
+
+plt.draw()
+plt.pause(3)

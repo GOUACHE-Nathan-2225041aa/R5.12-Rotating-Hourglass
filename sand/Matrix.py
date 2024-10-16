@@ -23,6 +23,7 @@ class Matrix:
         self.matrix_content[y2][x2] = temp
 
     def update_line(self, y):
+        has_updated = False
         # Go through the y row
         for x in range(len(self.matrix_content[y])):
             if (self.matrix_content[y][x] == self.content and y != len(self.matrix_content) - 1
@@ -38,8 +39,13 @@ class Matrix:
                             x_best_distance = upper_x
                 if x_best_distance != -1:
                     self.switch_points(x_best_distance, y + 1, x, y)
+                    has_updated = True
+        return has_updated
 
     def update_matrix(self):
+        has_updated = False
         # We check if every point can be updated
         for y in reversed(range(len(self.matrix_content))):
-            self.update_line(y)
+            if self.update_line(y):
+                has_updated = True
+        return has_updated
