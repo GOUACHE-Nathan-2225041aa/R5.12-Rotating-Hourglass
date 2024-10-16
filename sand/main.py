@@ -6,8 +6,8 @@ from matplotlib.colors import ListedColormap
 from Matrix import *
 
 # Randomization and size of the matrix
-matrix_size = 50
-percentage_of_spawn = 0.1
+matrix_size = 100
+percentage_of_spawn = 0.25
 # Contents
 nothing = 0
 something = 1
@@ -44,6 +44,6 @@ while has_updated:
     plt.pause(0.00001)
     has_updated = matrix1.update_matrix()
 
-
+# Finishes and closes 3 seconds after the final result
 plt.draw()
-plt.pause(3)
+plt.pause(5)
