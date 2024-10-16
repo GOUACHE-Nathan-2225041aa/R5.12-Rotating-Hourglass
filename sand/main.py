@@ -36,6 +36,7 @@ ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
 
 while True:
     matrix1.update_matrix()
+    plt.clf()
     ax = fig.add_subplot(111)
     ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
     plt.draw()

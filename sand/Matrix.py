@@ -23,6 +23,7 @@ class Matrix:
         self.matrix_content[y2][x2] = temp
 
     def update_line(self, y):
+        # Go through the y row
         for x in range(len(self.matrix_content[y])):
             if (self.matrix_content[y][x] == self.content and y != len(self.matrix_content) - 1
                     and self.matrix_content[y + 1].count(self.content) != len(self.matrix_content[y + 1])):
