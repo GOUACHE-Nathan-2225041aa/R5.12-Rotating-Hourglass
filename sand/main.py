@@ -6,11 +6,11 @@ from matplotlib.colors import ListedColormap
 from Matrix import *
 
 # Randomization and size of the matrix
-matrix_size = 21
-percentage_of_spawn = 0.2
+matrix_size = 50
+percentage_of_spawn = 0.1
 # Contents
-nothing = 1
-something = 0
+nothing = 0
+something = 1
 # Init of the matrix
 matrix = []
 
@@ -23,17 +23,20 @@ for i in range(matrix_size):
         else:
             matrix[i].append(nothing)
 
+# Customizing the colors of the matrix
+custom_colors_map = ListedColormap(['k', 'b'])
+
 # Creating the object from the Matrix class
 matrix1 = Matrix(matrix, something, nothing)
 
 # Displaying the Matrix
 fig = plt.figure()
 ax = fig.add_subplot(111)
-ax.matshow(matrix1.matrix_content)
+ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
 
 while True:
     matrix1.update_matrix()
     ax = fig.add_subplot(111)
-    ax.matshow(matrix1.matrix_content, custom_color_map)
+    ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
     plt.draw()
-    plt.pause(0.0001)
+    plt.pause(0.00001)
