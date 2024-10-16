@@ -1,15 +1,20 @@
 import random
+import time
+import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 
 from Matrix import *
 
-matrix_size = 3
+# Randomization and size of the matrix
+matrix_size = 21
 percentage_of_spawn = 0.2
-
-nothing = 0
-something = 1
-
+# Contents
+nothing = 1
+something = 0
+# Init of the matrix
 matrix = []
 
+# Filling the matrix
 for i in range(matrix_size):
     matrix.append([])
     for j in range(matrix_size):
@@ -18,19 +23,17 @@ for i in range(matrix_size):
         else:
             matrix[i].append(nothing)
 
+# Creating the object from the Matrix class
 matrix1 = Matrix(matrix, something, nothing)
 
-print(matrix1)
+# Displaying the Matrix
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.matshow(matrix1.matrix_content)
 
-inp = ""
-
-# while True:
-#     time.sleep(0.1)
-#     matrix1.update_matrix()
-#     print(matrix1)
-#
-while inp != "stop":
-    inp = input()
+while True:
     matrix1.update_matrix()
-    print(matrix1.matrix_content)
-    print(matrix1)
+    ax = fig.add_subplot(111)
+    ax.matshow(matrix1.matrix_content, custom_color_map)
+    plt.draw()
+    plt.pause(0.0001)
