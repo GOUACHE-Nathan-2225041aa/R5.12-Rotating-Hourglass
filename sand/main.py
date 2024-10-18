@@ -1,9 +1,9 @@
 import random
-import time
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
 from Matrix import *
+from Display import *
 
 # Randomization and size of the matrix
 matrix_size = 100
@@ -29,21 +29,13 @@ custom_colors_map = ListedColormap(['k', 'b'])
 # Creating the object from the Matrix class
 matrix1 = Matrix(matrix, something, nothing)
 
-# Displaying the Matrix
-fig = plt.figure()
-ax = fig.add_subplot(111)
-ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
+display = Display(custom_colors_map)
 
-has_updated = True
+has_finished = False
 
-while has_updated:
-    plt.clf()
-    ax = fig.add_subplot(111)
-    ax.matshow(matrix1.matrix_content, cmap=custom_colors_map)
-    plt.draw()
-    plt.pause(0.00001)
-    has_updated = matrix1.update_matrix()
+while not has_finished:
+    has_finished = matrix1.update_matrix()
+    display.draw_frame(matrix1.matrix_content)
 
-# Finishes and closes 3 seconds after the final result
-plt.draw()
+# Closes x seconds after the final result
 plt.pause(5)
