@@ -54,4 +54,5 @@ class Matrix:
         for y in reversed(range(len(self.matrix_content))):
             if self.update_line(y):
                 has_updated = True
+        # Return if one or more points has been updated
         return not has_updated
