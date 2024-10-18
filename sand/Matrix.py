@@ -16,27 +16,33 @@ class Matrix:
             printable_matrix += "\n"
         return printable_matrix
 
-    # Switch 2 points together
+    # Switch 2 points' position
     def switch_points(self, x1, y1, x2, y2):
         temp = self.matrix_content[y1][x1]
         self.matrix_content[y1][x1] = self.matrix_content[y2][x2]
         self.matrix_content[y2][x2] = temp
 
     def update_line(self, y):
+        # Init of the update check
         has_updated = False
         # Go through the y row
         for x in range(len(self.matrix_content[y])):
+            # If the current x i the row is a particle and there is room under it, 
+            # begin the calculus for the nearest blank space
             if (self.matrix_content[y][x] == self.content and y != len(self.matrix_content) - 1
                     and self.matrix_content[y + 1].count(self.content) != len(self.matrix_content[y + 1])):
+                # Init the best distance and the x associated to it
                 best_distance = float("inf")
                 x_best_distance = -1
-                for upper_x in range(len(self.matrix_content[y + 1])):
-                    if self.matrix_content[y + 1][upper_x] != self.content:
-                        # ON FAIT DES MATHS
-                        distance_between_2_points = math.sqrt(abs(((x - upper_x) ** 2) + 1))
+                # Going through the row under to check for blank spaces
+                for lower_x in range(len(self.matrix_content[y + 1])):
+                    if self.matrix_content[y + 1][lower_x] != self.content:
+                        # Calculate the distance between the 2 points then compares it to the best distance saved (Math)
+                        distance_between_2_points = math.sqrt(abs(((x - lower_x) ** 2) + 1))
                         if distance_between_2_points < best_distance:
                             best_distance = distance_between_2_points
-                            x_best_distance = upper_x
+                            x_best_distance = lower_x
+                # If we found a place to move the point to, we return that it updated
                 if x_best_distance != -1:
                     self.switch_points(x_best_distance, y + 1, x, y)
                     has_updated = True
