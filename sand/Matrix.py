@@ -1,11 +1,24 @@
 import math
+import random
 
 
 class Matrix:
-    def __init__(self, matrix_content=[], content=0, space=" ", ):
+    def __init__(self, matrix_content=[[0], [0]], content=0):
         self.matrix_content = matrix_content
         self.content = content
-        self.space = space
+
+    def generate_matrix(self, size, chance_of_content=0.2, content_value=1, blank_value=0):
+        matrix = []
+        for i in range(size):
+            matrix.append([])
+            for j in range(size):
+                if random.random() < chance_of_content:
+                    matrix[i].append(content_value)
+                else:
+                    matrix[i].append(blank_value)
+        self.matrix_content = matrix
+        self.content = content_value
+        return matrix
 
     # A user-friendly way to display the matrix's content
     def __str__(self):
