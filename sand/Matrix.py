@@ -3,12 +3,14 @@ import random
 
 
 class Matrix:
-    def __init__(self, matrix_content=[[0], [0]], content=0):
+    def __init__(self, matrix_content=[[0], [0]], content=1, blank=0):
         self.matrix_content = matrix_content
         self.content = content
+        self.blank = 0
 
     def generate_matrix(self, size, chance_of_content=0.2, content_value=1, blank_value=0):
         matrix = []
+        # Appends random contents to the matrix
         for i in range(size):
             matrix.append([])
             for j in range(size):
@@ -49,7 +51,7 @@ class Matrix:
                 x_best_distance = -1
                 # Going through the row under to check for blank spaces
                 for lower_x in range(len(self.matrix_content[y + 1])):
-                    if self.matrix_content[y + 1][lower_x] != self.content:
+                    if self.matrix_content[y + 1][lower_x] == self.blank:
                         # Calculate the distance between the 2 points then compares it to the best distance saved (Math)
                         distance_between_2_points = math.sqrt(abs(((x - lower_x) ** 2) + 1))
                         if distance_between_2_points < best_distance:
@@ -57,8 +59,22 @@ class Matrix:
                             x_best_distance = lower_x
                 # If we found a place to move the point to, we return that it updated
                 if x_best_distance != -1:
-                    self.switch_points(x_best_distance, y + 1, x, y)
-                    has_updated = True
+                    if x_best_distance < x and self.matrix_content[y][x-1] == self.blank:
+                        self.switch_points(x - 1, y, x, y)
+                        has_updated = True
+                    elif x_best_distance > x and self.matrix_content[y][x+1] == self.blank:
+                        self.switch_points(x + 1, y, x, y)
+                        has_updated = True
+                    elif self.matrix_content[y+1][x] == self.blank:
+                        self.switch_points(x_best_distance, y + 1, x, y)
+                        has_updated = True
+                elif self.matrix_content[y - 1][x] == self.blank :
+                    if self.matrix_content[y][x-1] == self.blank:
+                        self.switch_points(x - 1, y, x, y)
+                        has_updated = True
+                    elif self.matrix_content[y][x+1] == self.blank:
+                        self.switch_points(x - 1, y, x, y)
+                        has_updated = True
         return has_updated
 
     def update_matrix(self):
