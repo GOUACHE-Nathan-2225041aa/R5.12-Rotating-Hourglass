@@ -58,6 +58,7 @@ class Matrix:
                         if distance_between_2_points < best_distance:
                             best_distance = distance_between_2_points
                             x_best_distance = lower_x
+                # @todo : normalize the water level
                 # If we found a place to move the point to...
                 if x_best_distance != -1:
                     # Move to the left
