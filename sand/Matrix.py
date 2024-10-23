@@ -46,7 +46,7 @@ class Matrix:
             # If the current x i the row is a particle and there is room under it, 
             # begin the calculus for the nearest blank space
             if (self.matrix_content[y][x] == self.content and y != len(self.matrix_content) - 1
-                    and self.matrix_content[y + 1].count(self.blank) != 0):
+                    and (self.blank in self.matrix_content[y + 1])):
                 # Init the best distance and the x associated to it
                 best_distance = float("inf")
                 x_best_distance = -1
@@ -69,9 +69,7 @@ class Matrix:
                         self.switch_points(x + 1, y, x, y)
                         has_updated = True
                     # Insert in the blank space behind
-                    elif self.matrix_content[y + 1][x] == self.blank or (self.matrix_content[y + 1].count(self.content)
-                                                                         + self.matrix_content[y + 1].count(self.blank)
-                                                                         == len(self.matrix_content[y + 1])):
+                    elif self.matrix_content[y + 1][x] == self.blank or (self.wall not in self.matrix_content[y + 1]):
                         self.switch_points(x_best_distance, y + 1, x, y)
                         has_updated = True
         return has_updated
