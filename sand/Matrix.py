@@ -9,19 +9,25 @@ class Matrix:
         self.blank = blank
         self.wall = wall
 
-    def generate_matrix(self, size, chance_of_content=0.2, content_value=1, blank_value=0):
+    def generate_matrix(self, size, chance_of_content=0.2):
         matrix = []
         # Appends random contents to the matrix
         for i in range(size):
             matrix.append([])
             for j in range(size):
                 if random.random() < chance_of_content:
-                    matrix[i].append(content_value)
+                    matrix[i].append(self.content)
                 else:
-                    matrix[i].append(blank_value)
+                    matrix[i].append(self.blank)
         self.matrix_content = matrix
-        self.content = content_value
         return matrix
+
+# @todo : finis ça bg j'ai trop la flemme
+    def generate_hourglass(self, size, chance_of_content=0.2):
+        matrix = []
+        for i in range(size):
+            matrix.append([])
+            for j in range(size/2):
 
     # A user-friendly way to display the matrix's content
     def __str__(self):
