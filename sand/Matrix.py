@@ -59,12 +59,15 @@ class Matrix:
                             x_best_distance = lower_x
                 # If we found a place to move the point to, we return that it updated
                 if x_best_distance != -1:
-                    if x_best_distance < x and self.matrix_content[y][x - 1] == self.blank:
+                    # Move to the left
+                    if x_best_distance < x and self.matrix_content[y][x - 1] in [self.blank, self.content]:
                         self.switch_points(x - 1, y, x, y)
                         has_updated = True
-                    elif x_best_distance > x and self.matrix_content[y][x + 1] == self.blank:
+                    # Move to the right
+                    elif x_best_distance > x and self.matrix_content[y][x + 1] in [self.blank, self.content]:
                         self.switch_points(x + 1, y, x, y)
                         has_updated = True
+                    # Insert in the blank space behind
                     elif self.matrix_content[y + 1][x] == self.blank or (self.matrix_content[y + 1].count(self.content)
                                                                          + self.matrix_content[y + 1].count(self.blank)
                                                                          == len(self.matrix_content[y + 1])):
