@@ -3,10 +3,11 @@ import random
 
 
 class Matrix:
-    def __init__(self, matrix_content=[[0], [0]], content=1, blank=0):
+    def __init__(self, matrix_content=[[0], [0]], wall=2, content=1, blank=0):
         self.matrix_content = matrix_content
         self.content = content
         self.blank = blank
+        self.wall = wall
 
     def generate_matrix(self, size, chance_of_content=0.2, content_value=1, blank_value=0):
         matrix = []
