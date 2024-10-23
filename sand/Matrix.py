@@ -45,7 +45,7 @@ class Matrix:
             # If the current x i the row is a particle and there is room under it, 
             # begin the calculus for the nearest blank space
             if (self.matrix_content[y][x] == self.content and y != len(self.matrix_content) - 1
-                    and self.matrix_content[y + 1].count(self.content) != len(self.matrix_content[y + 1])):
+                    and self.matrix_content[y + 1].count(self.blank) != 0):
                 # Init the best distance and the x associated to it
                 best_distance = float("inf")
                 x_best_distance = -1
@@ -59,21 +59,16 @@ class Matrix:
                             x_best_distance = lower_x
                 # If we found a place to move the point to, we return that it updated
                 if x_best_distance != -1:
-                    if x_best_distance < x and self.matrix_content[y][x-1] == self.blank:
+                    if x_best_distance < x and self.matrix_content[y][x - 1] == self.blank:
                         self.switch_points(x - 1, y, x, y)
                         has_updated = True
-                    elif x_best_distance > x and self.matrix_content[y][x+1] == self.blank:
+                    elif x_best_distance > x and self.matrix_content[y][x + 1] == self.blank:
                         self.switch_points(x + 1, y, x, y)
                         has_updated = True
-                    elif self.matrix_content[y+1][x] == self.blank:
+                    elif self.matrix_content[y + 1][x] == self.blank or (self.matrix_content[y + 1].count(self.content)
+                                                                         + self.matrix_content[y + 1].count(self.blank)
+                                                                         == len(self.matrix_content[y + 1])):
                         self.switch_points(x_best_distance, y + 1, x, y)
-                        has_updated = True
-                elif self.matrix_content[y - 1][x] == self.blank :
-                    if self.matrix_content[y][x-1] == self.blank:
-                        self.switch_points(x - 1, y, x, y)
-                        has_updated = True
-                    elif self.matrix_content[y][x+1] == self.blank:
-                        self.switch_points(x - 1, y, x, y)
                         has_updated = True
         return has_updated
 

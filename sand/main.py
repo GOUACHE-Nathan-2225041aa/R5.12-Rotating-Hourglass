@@ -2,13 +2,13 @@ from Matrix import *
 from Display import *
 
 matrix1 = Matrix()
-matrix1.generate_matrix(10, chance_of_content=0.6)
+matrix1.generate_matrix(10, chance_of_content=0.8)
 
 matrix1.matrix_content[3] = [0, 0, 2, 0, 0, 0, 0, 2, 0, 0]
 matrix1.matrix_content[4] = [0, 0, 2, 0, 0, 0, 0, 2, 0, 0]
-matrix1.matrix_content[5] = [0, 0, 2, 2, 2, 2, 2, 2, 0, 0]
+matrix1.matrix_content[5] = [0, 0, 0, 2, 2, 2, 2, 0, 0, 0]
 
-display = Display(pause_interval=1)
+display = Display(pause_interval=0.5)
 
 has_finished = False
 
