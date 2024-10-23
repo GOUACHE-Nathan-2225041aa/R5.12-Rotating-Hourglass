@@ -58,7 +58,7 @@ class Matrix:
                         if distance_between_2_points < best_distance:
                             best_distance = distance_between_2_points
                             x_best_distance = lower_x
-                # If we found a place to move the point to, we return that it updated
+                # If we found a place to move the point to...
                 if x_best_distance != -1:
                     # Move to the left
                     if x_best_distance < x and self.matrix_content[y][x - 1] in [self.blank, self.content]:
@@ -68,7 +68,7 @@ class Matrix:
                     elif x_best_distance > x and self.matrix_content[y][x + 1] in [self.blank, self.content]:
                         self.switch_points(x + 1, y, x, y)
                         has_updated = True
-                    # Insert in the blank space behind
+                    # Insert in the blank space under
                     elif self.matrix_content[y + 1][x] == self.blank or (self.wall not in self.matrix_content[y + 1]):
                         self.switch_points(x_best_distance, y + 1, x, y)
                         has_updated = True
