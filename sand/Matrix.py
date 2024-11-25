@@ -22,12 +22,28 @@ class Matrix:
         self.matrix_content = matrix
         return matrix
 
-# @todo : finis ça bg j'ai trop la flemme
     def generate_hourglass(self, size, chance_of_content=0.2):
         matrix = []
-        for i in range(size):
+        for line in range(size):
+            # Côté gauche
             matrix.append([])
-            for j in range(size/2):
+            for Lcolumn in range(line):
+                matrix[line].append([self.blank])
+            matrix[line].append([self.content])
+            for Rcolumn in range(size-line-1):
+                matrix[line].append([self.blank])
+
+            # Côté droit
+            for Lcolumn in range(size-line-1):
+                matrix[line].append([self.blank])
+            matrix[line].append([self.content])
+            for Rcolumn in range(line):
+                matrix[line].append([self.blank])
+        # On inverse le haut et on le rajoute pour faire un sablier.
+        matrix.pop()
+        matrix.extend(reversed(matrix))
+        self.matrix_content = matrix
+        return matrix
 
     # A user-friendly way to display the matrix's content
     def __str__(self):
