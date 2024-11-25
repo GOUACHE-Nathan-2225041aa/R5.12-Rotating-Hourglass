@@ -2,9 +2,8 @@ from Matrix import *
 from Display import *
 
 matrix1 = Matrix()
-matrix1.generate_hourglass(30, chance_of_content=0.8)
-print(matrix1)
-display = Display(pause_interval=0.5)
+matrix1.generate_hourglass(30, chance_of_content=0.3)
+display = Display(pause_interval=0.05)
 
 has_finished = False
 

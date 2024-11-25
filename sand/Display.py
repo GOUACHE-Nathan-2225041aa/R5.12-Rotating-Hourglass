@@ -3,7 +3,7 @@ from matplotlib.colors import ListedColormap
 
 
 class Display:
-    def __init__(self, color_map=ListedColormap(['k', 'b', 'w']), pause_interval=0.00001):
+    def __init__(self, color_map=ListedColormap(['k', 'y', 'w']), pause_interval=0.00001):
         self.color_map = color_map
         self.fig = plt.figure()
         self.pause_interval = pause_interval

@@ -25,23 +25,29 @@ class Matrix:
     def generate_hourglass(self, size, chance_of_content=0.2):
         matrix = []
         for line in range(size):
-            # Côté gauche
+            # Left side
             matrix.append([])
             for Lcolumn in range(line):
-                matrix[line].append([self.blank])
-            matrix[line].append([self.content])
+                matrix[line].append(self.blank)
+            matrix[line].append(self.wall)
             for Rcolumn in range(size-line-1):
-                matrix[line].append([self.blank])
+                if random.random() < chance_of_content:
+                    matrix[line].append(self.content)
+                else:
+                    matrix[line].append(self.blank)
 
-            # Côté droit
+            # Right side
             for Lcolumn in range(size-line-1):
-                matrix[line].append([self.blank])
-            matrix[line].append([self.content])
+                if random.random() < chance_of_content:
+                    matrix[line].append(self.content)
+                else:
+                    matrix[line].append(self.blank)
+            matrix[line].append(self.wall)
             for Rcolumn in range(line):
-                matrix[line].append([self.blank])
-        # On inverse le haut et on le rajoute pour faire un sablier.
+                matrix[line].append(self.blank)
+        # Reverse top and add it to the bottom of the hourglass
         matrix.pop()
-        matrix.extend(reversed(matrix))
+        matrix.extend(reversed([row.copy() for row in matrix]))
         self.matrix_content = matrix
         return matrix
 
@@ -60,41 +66,25 @@ class Matrix:
         self.matrix_content[y1][x1] = self.matrix_content[y2][x2]
         self.matrix_content[y2][x2] = temp
 
+# @todo : Add water flattening when touching the ground
     def update_line(self, y):
         # Init of the update check
         has_updated = False
         # Go through the y row
         for x in range(len(self.matrix_content[y])):
-            # If the current x i the row is a particle and there is room under it, 
+            # If the current x in the row is a particle and there is room under it,
             # begin the calculus for the nearest blank space
             if (self.matrix_content[y][x] == self.content and y != len(self.matrix_content) - 1
                     and (self.blank in self.matrix_content[y + 1])):
-                # Init the best distance and the x associated to it
-                best_distance = float("inf")
-                x_best_distance = -1
-                # Going through the row under to check for blank spaces
-                for lower_x in range(len(self.matrix_content[y + 1])):
-                    if self.matrix_content[y + 1][lower_x] == self.blank:
-                        # Calculate the distance between the 2 points then compares it to the best distance saved (Math)
-                        distance_between_2_points = math.sqrt(abs(((x - lower_x) ** 2) + 1))
-                        if distance_between_2_points < best_distance:
-                            best_distance = distance_between_2_points
-                            x_best_distance = lower_x
-                # @todo : normalize the water level
-                # If we found a place to move the point to...
-                if x_best_distance != -1:
-                    # Move to the left
-                    if x_best_distance < x and self.matrix_content[y][x - 1] in [self.blank, self.content]:
-                        self.switch_points(x - 1, y, x, y)
-                        has_updated = True
-                    # Move to the right
-                    elif x_best_distance > x and self.matrix_content[y][x + 1] in [self.blank, self.content]:
-                        self.switch_points(x + 1, y, x, y)
-                        has_updated = True
-                    # Insert in the blank space under
-                    elif self.matrix_content[y + 1][x] == self.blank or (self.wall not in self.matrix_content[y + 1]):
-                        self.switch_points(x_best_distance, y + 1, x, y)
-                        has_updated = True
+                if self.matrix_content[y + 1][x] == self.blank:
+                    self.switch_points(x, y, x, y + 1)
+                    has_updated = True
+                elif self.matrix_content[y+1][x+1] == self.matrix_content[y][x+1] == self.blank:
+                    self.switch_points(x, y, x + 1, y + 1)
+                    has_updated = True
+                elif self.matrix_content[y+1][x-1] == self.matrix_content[y][x-1] == self.blank:
+                    self.switch_points(x, y, x - 1, y + 1)
+                    has_updated = True
         return has_updated
 
     def update_matrix(self):
