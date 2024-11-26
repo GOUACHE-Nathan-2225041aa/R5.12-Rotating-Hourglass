@@ -24,30 +24,51 @@ class Matrix:
 
     def generate_hourglass(self, size, chance_of_content=0.2):
         matrix = []
+        # Building hourglass
         for line in range(size):
             # Left side
             matrix.append([])
             for Lcolumn in range(line):
                 matrix[line].append(self.blank)
             matrix[line].append(self.wall)
-            for Rcolumn in range(size-line-1):
-                if random.random() < chance_of_content:
+            for Rcolumn in range(size - line - 1):
+                if line == 0:
+                    matrix[line].append(self.wall)
+                elif random.random() < chance_of_content:
                     matrix[line].append(self.content)
                 else:
                     matrix[line].append(self.blank)
 
             # Right side
-            for Lcolumn in range(size-line-1):
-                if random.random() < chance_of_content:
+            for Lcolumn in range(size - line - 1):
+                if line == 0:
+                    matrix[line].append(self.wall)
+                elif random.random() < chance_of_content:
                     matrix[line].append(self.content)
                 else:
                     matrix[line].append(self.blank)
             matrix[line].append(self.wall)
             for Rcolumn in range(line):
                 matrix[line].append(self.blank)
-        # Reverse top and add it to the bottom of the hourglass
+
+        # Remove last line where the content can't pass
         matrix.pop()
+
+        # Adding margin
+        margin = round(size / 5)
+        for marginLine in range(margin):
+            matrix.insert(0, [])
+            for marginColumn in range((size * 2)):
+                matrix[0].append(self.blank)
+
+        for line in range(len(matrix)):
+            for marginBuilder in range(margin):
+                matrix[line].insert(0, self.blank)
+            for marginBuilder in range(margin):
+                matrix[line].append(self.blank)
+
         matrix.extend(reversed([row.copy() for row in matrix]))
+
         self.matrix_content = matrix
         return matrix
 
@@ -66,7 +87,7 @@ class Matrix:
         self.matrix_content[y1][x1] = self.matrix_content[y2][x2]
         self.matrix_content[y2][x2] = temp
 
-# @todo : Add water flattening when touching the ground
+    # @todo : Add water flattening when touching the ground
     def update_line(self, y):
         # Init of the update check
         has_updated = False
@@ -79,10 +100,10 @@ class Matrix:
                 if self.matrix_content[y + 1][x] == self.blank:
                     self.switch_points(x, y, x, y + 1)
                     has_updated = True
-                elif self.matrix_content[y+1][x+1] == self.matrix_content[y][x+1] == self.blank:
+                elif self.matrix_content[y + 1][x + 1] == self.matrix_content[y][x + 1] == self.blank:
                     self.switch_points(x, y, x + 1, y + 1)
                     has_updated = True
-                elif self.matrix_content[y+1][x-1] == self.matrix_content[y][x-1] == self.blank:
+                elif self.matrix_content[y + 1][x - 1] == self.matrix_content[y][x - 1] == self.blank:
                     self.switch_points(x, y, x - 1, y + 1)
                     has_updated = True
         return has_updated
