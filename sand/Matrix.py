@@ -8,6 +8,7 @@ class Matrix:
         self.content = content
         self.blank = blank
         self.wall = wall
+        self.movable = [content, blank]
 
     def generate_matrix(self, size, chance_of_content=0.2):
         matrix = []
@@ -93,19 +94,32 @@ class Matrix:
         has_updated = False
         # Go through the y row
         for x in range(len(self.matrix_content[y])):
-            # If the current x in the row is a particle and there is room under it,
+            if x % 2 == 0:
+                index = x // 2
+            else:
+                index = len(self.matrix_content[y]) - (x // 2) - 1
+
+            # If the current index in the row is a particle and there is room under it,
             # begin the calculus for the nearest blank space
-            if (self.matrix_content[y][x] == self.content and y != len(self.matrix_content) - 1
+            if (self.matrix_content[y][index] == self.content and y != len(self.matrix_content) - 1
                     and (self.blank in self.matrix_content[y + 1])):
-                if self.matrix_content[y + 1][x] == self.blank:
-                    self.switch_points(x, y, x, y + 1)
+                # Under
+                if self.matrix_content[y + 1][index] == self.blank:
+                    self.switch_points(index, y, index, y + 1)
                     has_updated = True
-                elif self.matrix_content[y + 1][x + 1] == self.matrix_content[y][x + 1] == self.blank:
-                    self.switch_points(x, y, x + 1, y + 1)
+                # Under left
+                elif ((self.matrix_content[y + 1][index - 1] == self.blank) and
+                      (any(check in self.movable for check in
+                           [self.matrix_content[y + 1][index], self.matrix_content[y][index - 1]]))):
+                    self.switch_points(index, y, index - 1, y + 1)
                     has_updated = True
-                elif self.matrix_content[y + 1][x - 1] == self.matrix_content[y][x - 1] == self.blank:
-                    self.switch_points(x, y, x - 1, y + 1)
+                # Under right
+                elif ((self.matrix_content[y + 1][index + 1] == self.blank) and
+                      (any(check in self.movable for check in
+                           [self.matrix_content[y + 1][index], self.matrix_content[y][index + 1]]))):
+                    self.switch_points(index, y, index + 1, y + 1)
                     has_updated = True
+
         return has_updated
 
     def update_matrix(self):
@@ -116,3 +130,27 @@ class Matrix:
                 has_updated = True
         # Return if one or more points has been updated
         return not has_updated
+
+    # Function to rotate a matrix
+    # @todo Rotate the matrix by 45/90 degrees
+    def rotate_matrix(self, angle):
+
+        x_size = len(self.matrix_content[0])
+        y_size = len(self.matrix_content)
+        new_matrix = []
+
+        # Générer une nouvelle matrice vide
+        for x in range(x_size):
+            new_matrix.append([])
+            for y in range(y_size):
+                new_matrix[x].append(None)
+
+        # Parcourir l'ancienne matrice
+        for x in range(x_size):
+            for y in range(y_size):
+                new_x = int(x * math.cos(angle) - y * math.sin(angle))
+                new_y = int(x * math.sin(angle) - y * math.cos(angle))
+                new_matrix[new_x][new_y] = self.matrix_content[x][y]
+
+        self.matrix_content = new_matrix
+        return new_matrix
