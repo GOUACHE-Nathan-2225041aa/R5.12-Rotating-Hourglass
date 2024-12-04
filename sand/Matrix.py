@@ -70,6 +70,8 @@ class Matrix:
 
         matrix.extend(reversed([row.copy() for row in matrix]))
 
+        print(len(matrix[0]), len(matrix))
+
         self.matrix_content = matrix
         return matrix
 
@@ -88,7 +90,6 @@ class Matrix:
         self.matrix_content[y1][x1] = self.matrix_content[y2][x2]
         self.matrix_content[y2][x2] = temp
 
-    # @todo : Add water flattening when touching the ground
     def update_line(self, y):
         # Init of the update check
         has_updated = False
@@ -135,8 +136,8 @@ class Matrix:
     # @todo Rotate the matrix by 45/90 degrees
     def rotate_matrix(self, angle):
 
-        x_size = len(self.matrix_content[0])
-        y_size = len(self.matrix_content)
+        y_size = len(self.matrix_content[0])
+        x_size = len(self.matrix_content)
         new_matrix = []
 
         # Générer une nouvelle matrice vide
