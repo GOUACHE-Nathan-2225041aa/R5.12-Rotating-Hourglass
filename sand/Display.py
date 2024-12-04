@@ -13,10 +13,11 @@ class Display:
 
         matrix = np.array(matrix)
 
-        # Dimensions de la matrice
+        # Matrix's dimensions
         rows, cols = matrix.shape
 
-        # Parcourir la matrice pour tracer les points
+        # Go through the matrix to draw the points
+        # @todo : Rotate the matrix
         for i in range(rows):
             for j in range(cols):
                 if matrix[i, j] == 1:

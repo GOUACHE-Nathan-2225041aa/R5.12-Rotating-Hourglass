@@ -133,7 +133,7 @@ class Matrix:
         return not has_updated
 
     # Function to rotate a matrix
-    # @todo Rotate the matrix by 45/90 degrees
+    # @todo Rotate the matrix by 90 degrees
     def rotate_matrix(self, angle):
 
         y_size = len(self.matrix_content[0])
