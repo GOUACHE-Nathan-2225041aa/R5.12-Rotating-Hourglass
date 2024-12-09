@@ -13,8 +13,8 @@ class Display:
     def draw_frame(self, matrix=[[0], [0]], angle=90):
         self.ax.clear()
 
-        self.ax.set_xlim([0, len(matrix[0])])
-        self.ax.set_ylim([0, len(matrix)])
+        self.ax.set_xlim([-len(matrix[0]), len(matrix[0])])
+        self.ax.set_ylim([-len(matrix), len(matrix)])
         self.ax.set_aspect('equal')
         self.ax.autoscale(False)
 

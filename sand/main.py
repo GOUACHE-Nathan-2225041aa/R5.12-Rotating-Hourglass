@@ -10,6 +10,7 @@ display = Display(pause_interval=0.01)
 angle = 0
 
 while True:
-    matrix1.update_matrix()
     display.draw_frame(matrix1.matrix_content, angle)
     angle += 1
+    if matrix1.update_matrix() :
+        matrix1.matrix_content.reverse()
