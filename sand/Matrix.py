@@ -55,22 +55,11 @@ class Matrix:
         # Remove last line where the content can't pass
         matrix.pop()
 
-        # Adding margin
-        margin = round(size / 5)
-        for marginLine in range(margin):
-            matrix.insert(0, [])
-            for marginColumn in range((size * 2)):
-                matrix[0].append(self.blank)
+        margin = [0] * len(matrix[0])
 
-        for line in range(len(matrix)):
-            for marginBuilder in range(margin):
-                matrix[line].insert(0, self.blank)
-            for marginBuilder in range(margin):
-                matrix[line].append(self.blank)
+        matrix.insert(0, margin)
 
         matrix.extend(reversed([row.copy() for row in matrix]))
-
-        print(len(matrix[0]), len(matrix))
 
         self.matrix_content = matrix
         return matrix
@@ -133,26 +122,6 @@ class Matrix:
         return not has_updated
 
     # Function to rotate a matrix (-90°)
-    def rotate_matrix(self) :
-
-        y_size = len(self.matrix_content[0])
-        M.insert(0, [''] * y_size)
-        M.append([''] * y_size)
-        rotated_matrix = []
-
-        # Générer une nouvelle matrice vide
-        for x in range(y_size):
-            rotated_matrix.append([])
-            for y in range(y_size):
-                rotated_matrix[x].append("")
-
-        # Faire tourner la matrice à 90°
-        indice_ligne = 0
-        for ligne in self.matrix_content :
-            indice_colonne = 0
-            for elt in ligne :
-                rotated_matrix[indice_colonne][indice_ligne] = elt
-                indice_colonne += 1
-            indice_ligne += 1
-
-        return rotated_matrix
+    def rotate_matrix(self):
+        self.matrix_content = [list(reversed(col)) for col in zip(*self.matrix_content)]
+        return self.matrix_content

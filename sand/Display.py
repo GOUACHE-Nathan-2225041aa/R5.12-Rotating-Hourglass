@@ -32,7 +32,7 @@ class Display:
                 elif matrix[i, j] == 2:
                     color = "ko"
                 if matrix[i, j] in [1, 2]:
-                    point_to_rotate = [j-len(matrix)/2, (i-len(matrix[0])/2)]
+                    point_to_rotate = [j - cols / 2, i - rows / 2]
                     point_coordinates = self.get_rotated_point(point_to_rotate, angle)
                     plt.plot(point_coordinates[0], point_coordinates[1], color,
                              label=f'Value: {matrix[i, j]}' if i == 0 and j == 0 else "")
@@ -55,6 +55,3 @@ class Display:
         homogeneous_coordinates_rotated = matrix_rotation @ homogeneous_coordinates
 
         return homogeneous_coordinates_rotated
-
-    def set_angle(self, new_angle):
-        self.angle = new_angle
