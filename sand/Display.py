@@ -25,7 +25,6 @@ class Display:
 
         # Go through the matrix to draw the points
         # @todo : Rotate the matrix around itself
-        # @todo : Translate everything in english
         for i in range(rows):
             for j in range(cols):
                 if matrix[i, j] == 1:
@@ -33,7 +32,8 @@ class Display:
                 elif matrix[i, j] == 2:
                     color = "ko"
                 if matrix[i, j] in [1, 2]:
-                    point_coordinates = self.get_rotated_point([j, -i], angle)
+                    point_to_rotate = [j-len(matrix)/2, (i-len(matrix[0])/2)]
+                    point_coordinates = self.get_rotated_point(point_to_rotate, angle)
                     plt.plot(point_coordinates[0], point_coordinates[1], color,
                              label=f'Value: {matrix[i, j]}' if i == 0 and j == 0 else "")
 

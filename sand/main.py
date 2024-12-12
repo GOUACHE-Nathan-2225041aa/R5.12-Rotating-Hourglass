@@ -20,4 +20,4 @@ while True:
             display.draw_frame(matrix1.matrix_content, angle)
 
         # La fonction pour bien faire tourner le sablier
-        matrix1.rotate_matrix()
+        matrix1.matrix_content.reverse()
