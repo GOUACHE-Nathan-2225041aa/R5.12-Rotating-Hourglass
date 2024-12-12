@@ -33,8 +33,8 @@ class Display:
                 elif matrix[i, j] == 2:
                     color = "ko"
                 if matrix[i, j] in [1, 2]:
-                    coordonnees_point = self.get_rotated_point([j, -i], angle)
-                    plt.plot(coordonnees_point[0], coordonnees_point[1], color,
+                    point_coordinates = self.get_rotated_point([j, -i], angle)
+                    plt.plot(point_coordinates[0], point_coordinates[1], color,
                              label=f'Value: {matrix[i, j]}' if i == 0 and j == 0 else "")
 
         plt.draw()
@@ -44,17 +44,17 @@ class Display:
 
         angle = np.radians(angle)
 
-        matrice_rotation = np.matrix([
+        matrix_rotation = np.matrix([
             [cos(angle), -sin(angle), 0],
             [sin(angle), cos(angle), 0],
             [0, 0, 1]
         ])
 
-        coordonnees_homogenes = np.matrix([[point[0]], [point[1]], [1]])
+        homogeneous_coordinates = np.matrix([[point[0]], [point[1]], [1]])
 
-        coordonnes_homogenes_rotated = matrice_rotation @ coordonnees_homogenes
+        homogeneous_coordinates_rotated = matrix_rotation @ homogeneous_coordinates
 
-        return coordonnes_homogenes_rotated
+        return homogeneous_coordinates_rotated
 
     def set_angle(self, new_angle):
         self.angle = new_angle

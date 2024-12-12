@@ -133,10 +133,10 @@ class Matrix:
         return not has_updated
 
     # Function to rotate a matrix (-90°)
-    def rotate_matrix(self) :
+    def rotate_matrix(self):
 
-        x_size = len(self)
-        y_size = len(self[0])
+        x_size = len(self.matrix_content)
+        y_size = len(self.matrix_content[0])
         rotated_matrix = []
 
         # Générer une nouvelle matrice vide
@@ -147,7 +147,7 @@ class Matrix:
 
         # Faire tourner la matrice à 90°
         indice_ligne = 0
-        for ligne in self :
+        for ligne in self.matrix_content:
             indice_colonne = 0
             for elt in ligne :
                 rotated_matrix[indice_colonne][indice_ligne] = elt
